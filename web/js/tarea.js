@@ -1,17 +1,15 @@
 $(document).ready(function(){
    //boton nuevaTarea
     $('#nuevaTarea').click(function(){
-        console.log('hacemos click');
         //se activan los botones de Guardar y Cancelar
         $('#Guardar').attr("disabled", false);
         $('#Cancelar').attr("disabled", false);
-
         //se activa el campo de texto textNuevaTarea
         $('#textNuevaTarea').attr("disabled", false);
-
         //se desactiva el boton de NuevaTarea
         $('#nuevaTarea').attr("disabled", true);
-    })
+    });
+
     //*********************** INICIO ACCIONES CANCELAR*************** //
     $('#Cancelar').click(function(){
         //tenemos que recorrer los checkbox y ver si hay alguno seleccionados
@@ -27,10 +25,8 @@ $(document).ready(function(){
         });
 
         if(activaBotones){
-          console.log('hay que modificar');
             CancelarModificar();
         }else{
-          console.log('cancelaranadir');
             CancelarAnadir();
         }
 
@@ -56,8 +52,6 @@ $(document).ready(function(){
         $('#Guardar').click();
     });
 
-
-
     //Acciones llevadas a cabo cuando se cancela y no se guardan los cambios
     function AccionesCancelar(){
         //se Desactivan los 3 botones de cancelar, guardar, Eliminar
@@ -73,6 +67,7 @@ $(document).ready(function(){
     }
     //************** FIN ACCIONES CANCELAR ******************//
 
+    //************** INICIO ACCIONES GUARDAR ***************//
     $('#Guardar').click(function(){
         //tenemos que recorrer los checkbox y ver si hay alguno seleccionados
         var activaBotones = false;
@@ -91,7 +86,6 @@ $(document).ready(function(){
         }else{
             AnadirElemento();
         }
-
     });
 
     function ModificarElemento(idSeleccionado){
@@ -106,7 +100,6 @@ $(document).ready(function(){
               data: json,
               url: 'modificar-ajax',
               success:function(respuesta){
-                console.log('estamos al final');
                   $('#gridTareas').html('');
                   $('#gridTareas').html(respuesta);
                   $('#tareaVacia').html('<p id="alertSuccess" class="alert alert-success" role="alert">La tarea se ha modificado correctamente</p>')
@@ -162,58 +155,9 @@ $(document).ready(function(){
             });
         }
     }
+    //************** FIN ACCIONES GUARDAR ******************//
 
-    function estadoBotones(estado){
-        //si es true se desactivan los botones, si es false se activan
-        $('#Guardar').attr("disabled", estado);
-        $('#Cancelar').attr("disabled", estado);
-        $('#Eliminar').attr("disabled", estado);
-    }
-
-    //cada vez que se haga click en un checkbox comprobamos que
-    // si hay alguno seleccionado los botones estaran activados y
-    //si no hay ninguno seleccionado los botones estaran desactivados
-    $('#gridTareas').on('click', '.check', function(e){
-        var activaBotones = false;
-        var contadorSeleccionados = 0;
-        var id = 0;
-        var idSeleccionado=0;
-        //recorremos todos los checkbox
-        $(".check").each(function () {
-          //sacamos su atributo id
-          id = this.id;
-          console.log('el id '+id);
-          if( $('#'+id).prop('checked') ){
-            activaBotones = true;
-            contadorSeleccionados++;
-            idSeleccionado = id;
-          }
-
-        });
-        // si activaBotones es false se desactivan los botones
-        if( activaBotones == false ){
-          estadoBotones(true);
-        }else{
-          //activamos los activaBotones
-          estadoBotones(false);
-        }
-        //vamos a comprobar para el boton guardar y cancelar si hay uno seleccionado, estara activado
-        //si hay 0 o mas de 1 seleccionado el boton guardar y cancelar estara desactivado
-        if(contadorSeleccionados == 1){
-            $('#Guardar').attr("disabled", false);
-            $('#Cancelar').attr("disabled", false);
-            $('#textNuevaTarea').attr("disabled", false);
-            $('#tarea'+idSeleccionado).val();
-            $('#textNuevaTarea').val( $('#tarea'+idSeleccionado).val() );
-        }else{
-            $('#Guardar').attr("disabled", true);
-            $('#Cancelar').attr("disabled", true);
-            $('#textNuevaTarea').attr("disabled", true);
-            $('#textNuevaTarea').val("");
-        }
-        console.log("contador: "+contadorSeleccionados+" id: "+idSeleccionado+" nombre: "+  $('#tarea'+idSeleccionado).val());
-    });
-
+    //************** INICIO ACCIONES ELIMINAR ******************//
     //boton de Eliminar
     $('#eliminarModal').click(function(){
         var seleccionados = '';
@@ -250,5 +194,53 @@ $(document).ready(function(){
             }
         })
     });
+    //************** FIN ACCIONES ELIMINAR ******************//
 
+    function estadoBotones(estado){
+        //si es true se desactivan los botones, si es false se activan
+        $('#Guardar').attr("disabled", estado);
+        $('#Cancelar').attr("disabled", estado);
+        $('#Eliminar').attr("disabled", estado);
+    }
+
+    //cada vez que se haga click en un checkbox comprobamos que
+    // si hay alguno seleccionado los botones estaran activados y
+    //si no hay ninguno seleccionado los botones estaran desactivados
+    $('#gridTareas').on('click', '.check', function(e){
+        var activaBotones = false;
+        var contadorSeleccionados = 0;
+        var id = 0;
+        var idSeleccionado=0;
+        //recorremos todos los checkbox
+        $(".check").each(function () {
+            //sacamos su atributo id
+            id = this.id;
+            if( $('#'+id).prop('checked') ){
+                activaBotones = true;
+                contadorSeleccionados++;
+                idSeleccionado = id;
+            }
+        });
+        // si activaBotones es false se desactivan los botones
+        if( activaBotones == false ){
+          estadoBotones(true);
+        }else{
+          //activamos los activaBotones
+          estadoBotones(false);
+        }
+        //vamos a comprobar para el boton guardar y cancelar si hay uno seleccionado, estara activado
+        //si hay 0 o mas de 1 seleccionado el boton guardar y cancelar estara desactivado
+        if(contadorSeleccionados == 1){
+            $('#Guardar').attr("disabled", false);
+            $('#Cancelar').attr("disabled", false);
+            $('#textNuevaTarea').attr("disabled", false);
+            $('#tarea'+idSeleccionado).val();
+            $('#textNuevaTarea').val( $('#tarea'+idSeleccionado).val() );
+        }else{
+            $('#Guardar').attr("disabled", true);
+            $('#Cancelar').attr("disabled", true);
+            $('#textNuevaTarea').attr("disabled", true);
+            $('#textNuevaTarea').val("");
+        }
+    });
 })
