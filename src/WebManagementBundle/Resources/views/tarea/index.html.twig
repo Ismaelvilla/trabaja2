@@ -5,28 +5,28 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb my-2">
                     <li class="breadcrumb-item"><a href="{{ path('web_management_home') }}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Tareas</li>
+                    <li class="breadcrumb-item active" aria-current="page">Gestión Tareas</li>
                 </ol>
             </nav>
         </div>
     </div>
 
-    <div class="container border mt-5">
-        <div class="row border">
-            <div class="col-12 col-sm-6 border">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-sm-6">
                 <button id="nuevaTarea" type="button" class="btn btn-outline-primary">Añadir nueva Tarea</button>
             </div>
-            <div class="col-12 col-sm-6 border">
+            <div class="col-12 col-sm-6 text-right">
                 <button type="button" id="Guardar" class="btn btn-outline-success" disabled>Guardar</button>
                 <button type="button" id="Eliminar" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal" disabled>Eliminar</button>
                 <button type="button" id="Cancelar" class="btn btn-outline-secondary" disabled>Cancelar</button>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-12">
+            <div class="col-12 col-sm-12 mt-4">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Default</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Tarea</span>
                     </div>
                     <input id="textNuevaTarea" type="text" disabled class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                 </div>
