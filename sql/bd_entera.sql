@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-06-2020 a las 14:28:09
+-- Tiempo de generación: 19-06-2020 a las 10:53:04
 -- Versión del servidor: 10.4.10-MariaDB
--- Versión de PHP: 7.4.0
+-- Versión de PHP: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `activo` tinyint(1) NOT NULL,
   `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -74,7 +74,9 @@ INSERT INTO `categoria` (`id`, `nombre`, `fecha`, `activo`, `user`) VALUES
 (30, '', '2020-06-05 11:39:06', 0, '1'),
 (31, '', '2020-06-05 11:40:29', 0, '1'),
 (32, '', '2020-06-05 11:41:33', 0, '1'),
-(33, '', '2020-06-05 11:51:09', 0, '1');
+(33, '', '2020-06-05 11:51:09', 0, '1'),
+(34, '', '2020-06-16 15:44:28', 0, '1'),
+(35, 'prueba2', '2020-06-16 15:45:33', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -137,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   KEY `IDX_B8D75A503397707A` (`categoria_id`),
   KEY `IDX_B8D75A504E7121AF` (`provincia_id`),
   KEY `IDX_B8D75A50238957D9` (`poblacion_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `empresa`
@@ -174,7 +176,51 @@ INSERT INTO `empresa` (`id`, `nombre`, `email`, `prioridad`, `activo`, `fecha`, 
 (45, 'gfhj', '', 1, 1, '2020-06-04 14:03:36', 10, 37, 37, NULL, '1'),
 (46, 'prueba', 'asdf@gmail.es', 1, 1, '2020-06-04 17:00:14', 10, 37, 37, 'esto es una prueba a ver si funciona', '1'),
 (47, 'jhhj', '', 1, 1, '2020-06-04 17:05:46', 10, 50, 49, 'asdf asdf dasf asdf adsf asdf adsf adsf sadf dsaf adsf asfasf', '1'),
-(49, 'borrar1', '', 1, 1, '2020-06-04 17:50:11', 25, 50, 720, NULL, '1');
+(49, 'borrar1', '', 1, 1, '2020-06-04 17:50:11', 25, 50, 720, NULL, '1'),
+(50, '', '', 1, 0, '2020-06-16 15:44:21', 8, 53, 8117, NULL, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `envio`
+--
+
+DROP TABLE IF EXISTS `envio`;
+CREATE TABLE IF NOT EXISTS `envio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empresa_id` int(11) DEFAULT NULL,
+  `fecha` datetime NOT NULL,
+  `comentario` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_754737D5521E1991` (`empresa_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `envio`
+--
+
+INSERT INTO `envio` (`id`, `empresa_id`, `fecha`, `comentario`, `user`) VALUES
+(53, 49, '2020-06-19 10:18:49', 'kk', '1'),
+(54, 44, '2020-06-19 10:18:49', 'kk', '1'),
+(55, 45, '2020-06-19 10:18:49', 'kk', '1'),
+(56, 49, '2020-06-19 10:23:44', 'mmm', '1'),
+(57, 45, '2020-06-19 10:24:05', 'lllll', '1'),
+(58, 21, '2020-06-19 10:24:05', 'lllll', '1'),
+(59, 21, '2020-06-19 10:28:34', 'esto es una prrueba', '1'),
+(60, 43, '2020-06-19 10:34:44', '', '1'),
+(61, 43, '2020-06-19 10:35:03', 'hh', '1'),
+(62, 43, '2020-06-19 10:35:21', 'nnn', '1'),
+(63, 45, '2020-06-19 10:36:37', 'fghj gj gf', '1'),
+(64, 49, '2020-06-19 10:36:49', 'jlhjlghl', '1'),
+(65, 44, '2020-06-19 10:36:49', 'jlhjlghl', '1'),
+(66, 21, '2020-06-19 10:42:09', 'esto es una prueba', '1'),
+(67, 21, '2020-06-19 10:42:48', 'esto es una prueba colectiva', '1'),
+(68, 47, '2020-06-19 10:42:48', 'esto es una prueba colectiva', '1'),
+(69, 19, '2020-06-19 10:42:48', 'esto es una prueba colectiva', '1'),
+(70, 28, '2020-06-19 10:43:21', '', '1'),
+(71, 18, '2020-06-19 10:43:21', '', '1'),
+(72, 18, '2020-06-19 10:43:39', 'bien', '1');
 
 -- --------------------------------------------------------
 
@@ -8407,33 +8453,7 @@ CREATE TABLE IF NOT EXISTS `tarea` (
   `activo` tinyint(1) NOT NULL,
   `usuario` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `tarea`
---
-
-INSERT INTO `tarea` (`id`, `tarea`, `fecha`, `activo`, `usuario`) VALUES
-(28, 'primerokruhj', '2020-06-12 12:35:56', 1, '1'),
-(42, 'gjfj1', '2020-06-12 13:41:55', 1, '1'),
-(43, 'hgkg9', '2020-06-12 13:42:49', 1, '1'),
-(44, 'dfgdfgsdfg', '2020-06-12 13:46:52', 1, '1'),
-(45, 'hjkhkhkh', '2020-06-12 13:47:37', 1, '1'),
-(46, 'fhfdhdf', '2020-06-12 13:55:18', 1, '1'),
-(47, 'khjkg', '2020-06-12 13:59:54', 1, '1'),
-(48, 'dfhdfhjj', '2020-06-12 16:12:16', 1, '1'),
-(49, '20', '2020-06-12 16:19:04', 1, '1'),
-(50, 'gvfgbf', '2020-06-12 16:30:48', 1, '1'),
-(51, 'segundo6', '2020-06-12 17:31:01', 1, '1'),
-(52, 'yyy', '2020-06-12 17:31:20', 1, '1'),
-(53, 'hhh', '2020-06-12 17:32:13', 1, '1'),
-(54, 'fin', '2020-06-12 17:33:18', 1, '1'),
-(55, 'fin2', '2020-06-12 17:34:28', 1, '1'),
-(56, 'tt', '2020-06-12 17:53:54', 1, '1'),
-(57, 'ggggg5', '2020-06-12 17:56:46', 1, '1'),
-(58, 'iiiii9', '2020-06-12 17:57:02', 1, '1'),
-(59, 'aaaaa1', '2020-06-12 18:05:54', 1, '1'),
-(60, 'fdsgsh', '2020-06-12 18:14:48', 1, '1');
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -8466,7 +8486,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `confirmation_token`, `password_requested_at`, `roles`) VALUES
-(1, 'isma', 'isma', 'ismael.villarreal@hotmail.es', 'ismael.villarreal@hotmail.es', 1, NULL, '$2y$13$KlfGbnoE9ymknwBb4MwthuUaY2u9J4GbNL3.daQufR9IBThBQatVi', '2020-06-11 16:17:51', NULL, NULL, 'a:0:{}');
+(1, 'isma', 'isma', 'ismael.villarreal@hotmail.es', 'ismael.villarreal@hotmail.es', 1, NULL, '$2y$13$KlfGbnoE9ymknwBb4MwthuUaY2u9J4GbNL3.daQufR9IBThBQatVi', '2020-06-18 07:27:55', NULL, NULL, 'a:0:{}');
 
 --
 -- Restricciones para tablas volcadas
@@ -8479,6 +8499,12 @@ ALTER TABLE `empresa`
   ADD CONSTRAINT `FK_B8D75A50238957D9` FOREIGN KEY (`poblacion_id`) REFERENCES `municipios` (`id_municipio`),
   ADD CONSTRAINT `FK_B8D75A503397707A` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`),
   ADD CONSTRAINT `FK_B8D75A504E7121AF` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id_provincia`);
+
+--
+-- Filtros para la tabla `envio`
+--
+ALTER TABLE `envio`
+  ADD CONSTRAINT `FK_754737D5521E1991` FOREIGN KEY (`empresa_id`) REFERENCES `empresa` (`id`);
 
 --
 -- Filtros para la tabla `municipios`
