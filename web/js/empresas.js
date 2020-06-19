@@ -93,7 +93,7 @@ $(document).ready(function(){
             //Esto es la 1ª Manera de hacerlo
 
             //aqui sera colectivo, vamos a recorrer para ver quien esta chequeado
-            //y lo enviamos a realizarenvio
+            //y lo enviamos a RealizarEnvio()
             /* $('.check').each(function(e){
                    var id= this.id;
                    if( $('#'+id).prop('checked') ){
