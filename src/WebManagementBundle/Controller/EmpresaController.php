@@ -203,4 +203,47 @@ class EmpresaController extends Controller
 
         return $response;
     }
+
+    public function envioAction(Request $request){
+        //obtenemos el usuario
+        $usuario = $this->getUser()->getId();
+
+        //obtenemos los atributos
+        $idEmpresa = $request->query->get('idEmpresa');
+        $comentario = $request->query->get('comentario');
+
+        //Obtenemos el entity
+        $entityManager = $this->getDoctrine()->getManager();
+
+        //sacamos la empresa
+        $repositoryEmpresa = $entityManager->getRepository('WebManagementBundle:Empresa');
+        $empresa = $repositoryEmpresa->find($idEmpresa);
+
+        //vamos a crear un nuevo envio para esta empresa
+        $repositoryEnvio = $entityManager->getRepository('WebManagementBundle:Envio');
+        $repositoryEnvio->CrearNuevo($entityManager, $empresa, $comentario, $usuario);
+
+        return new response("");
+    }
+
+    public function envioColectivoAction(Request $request){
+        //obtenemos el usuario
+        $usuario = $this->getUser()->getId();
+
+        $comentario = $request->query->get('comentario');
+
+        //Obtenemos el entity y los repositorios Empresa y Envio
+        $entityManager = $this->getDoctrine()->getManager();
+        $repositoryEmpresa = $entityManager->getRepository('WebManagementBundle:Empresa');
+        $repositoryEnvio = $entityManager->getRepository('WebManagementBundle:Envio');
+
+        //obtenemos los atributos
+        $check = $request->query->get('check');
+        foreach($check as $valor ){
+           $empresa = $repositoryEmpresa->find($valor["value"]);
+           $repositoryEnvio->CrearNuevo($entityManager, $empresa, $comentario, $usuario);
+        }
+
+        return new Response('');
+    }
 }

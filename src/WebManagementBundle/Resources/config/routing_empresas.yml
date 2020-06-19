@@ -28,8 +28,14 @@ empresas_provincias_ajax:
   methods:  [GET]
   defaults: { _controller: WebManagementBundle:Empresa:provinciaAjax }
 
-empresas_pruebas:
-  path:     '/pruebas'
+empresas_envio:
+  path:     '/envio-ajax/'
   methods:  [GET]
-  defaults: { _controller: WebManagementBundle:Empresa:pruebas }
+  defaults: { _controller: WebManagementBundle:Empresa:envio }
+
+empresas_envioColectivo:
+  path:     '/envioColectivo-ajax/'
+  methods:  [GET]
+  defaults: { _controller: WebManagementBundle:Empresa:envioColectivo }
+
 
