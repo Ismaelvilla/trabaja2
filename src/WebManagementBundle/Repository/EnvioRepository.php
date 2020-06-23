@@ -1,8 +1,11 @@
 <?php
 
 namespace WebManagementBundle\Repository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
 use WebManagementBundle\Entity\Envio;
-//use WebManagementBundle\Entity\Empresa;
+use WebManagementBundle\Entity\Empresa;
+
 
 /**
  * EnvioRepository
@@ -28,5 +31,25 @@ class EnvioRepository extends \Doctrine\ORM\EntityRepository
 
         $entityManager->persist($envio);
         $entityManager->flush();
+    }
+
+    /**
+     * Function que nos devuelve las empresas que no tienen envios
+     * @param EntityManager $entity
+     * @param $usuario
+     * @return array|int|string
+     */
+    function GetEmpresasSinEnvios(EntityManager $entity, $usuario){
+        $qb = $entity->createQuery(
+            'SELECT em
+                FROM WebManagementBundle:Empresa em
+                left join WebManagementBundle:Envio en
+                with em.id = en.empresa
+                WHERE em.usuario = :usuario
+                AND en.id is null
+                AND em.activo = true
+               ')
+                ->setParameter('usuario', $usuario);
+        return $qb->getResult();
     }
 }

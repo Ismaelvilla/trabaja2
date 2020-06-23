@@ -1,0 +1,4 @@
+envios_index:
+  path:     '/'
+  methods:  [GET]
+  defaults: { _controller: WebManagementBundle:Envio:index }

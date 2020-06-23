@@ -21,5 +21,10 @@ tareas:
   resource: "@WebManagementBundle/Resources/config/routing_tareas.yml"
   prefix:   '/tareas/'
 
+#ENVIOS
+envios:
+  resource: "@WebManagementBundle/Resources/config/routing_envios.yml"
+  prefix:   '/envios/'
+
 
 

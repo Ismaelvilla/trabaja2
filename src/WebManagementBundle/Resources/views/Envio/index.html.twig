@@ -1,0 +1,91 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb my-2">
+                    <li class="breadcrumb-item"><a href="{{ path('web_management_home') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Envios</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm-6 text-right">
+            &nbsp;
+        </div>
+    </div>
+    <div class="bg-purple rounded shadow-sm">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">Envios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">Empresas sin Envios</a>
+            </li>
+        </ul>
+
+        <!-- CAJA ENVIOS -->
+        <div class="tab-content">
+            <div class="tab-pane container active border pt-3" id="home" >
+                <table class="table" id="envioTable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Empresa</th>
+                            <th>Provincia</th>
+                            <th>Poblacion</th>
+                            <th>Fecha</th>
+                            <th>Comentarios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for envio in envios %}
+                            <tr>
+                                <td>{{ envio.id }}</td>
+                                <td>{{ envio.empresa.nombre }}</td>
+                                <td>{{ envio.empresa.provincia.Provincia }}</td>
+                                <td>{{ envio.empresa.poblacion.nombre }}</td>
+                                <td>{{ envio.fecha|date('d/m/Y H:i') }}</td>
+                                <td>{{ envio.comentario }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- FIN CAJA ENVIOS -->
+
+            <!-- CAJA EMPRESAS SIN ENVIOS -->
+            <div class="tab-pane container fade" id="menu1">
+                <div class="tab-pane container active border pt-3" id="home" >
+                    <table class="table" id="sinEnvioTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Empresa</th>
+                                <th>Provincia</th>
+                                <th>Poblacion</th>
+                                <th>Comentarios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for empresaSinEnvios in empresasSinEnvios %}
+                                <tr>
+                                    <td>{{ empresaSinEnvios.id }}</td>
+                                    <td>{{ empresaSinEnvios.nombre }}</td>
+                                    <td>{{ empresaSinEnvios.provincia.Provincia }}</td>
+                                    <td>{{ empresaSinEnvios.poblacion.nombre }}</td>
+                                    <td>{{ empresaSinEnvios.comentario }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- FIN CAJA EMPRESAS SIN ENVIOS -->
+        </div>
+        <!-- FIN CAJA ENVIOS -->
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/enviosTable.js') }}"></script>
+    <script src="{{ asset('js/empresasSinEnviosTable.js') }}"></script>
+{% endblock %}
